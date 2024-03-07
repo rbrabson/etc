@@ -1,5 +1,12 @@
 package ftc
 
+import (
+	"encoding/json"
+	"strings"
+
+	"github.com/rbrabson/ftc/internal/ftchttp"
+)
+
 type Scores struct {
 	MatchScores []MatchScores `json:"matchScores"`
 }
@@ -50,4 +57,44 @@ type MatchAlliance struct {
 	PenaltyPointsCommitted  int    `json:"penaltyPointsCommitted"`
 	PrePenaltyTotal         int    `json:"prePenaltyTotal"`
 	TotalPoints             int    `json:"totalPoints"`
+}
+
+func GetEventMatchResults(season string, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]MatchScores, error) {
+	sb := strings.Builder{}
+	sb.WriteString(server)
+	sb.WriteString("/")
+	sb.WriteString(season)
+	sb.WriteString("/matches/")
+	sb.WriteString(eventCode)
+	sb.WriteString("?")
+	sb.WriteString(string(tournamentLevel))
+	if len(teamNumber) > 0 {
+		sb.WriteString("&")
+		sb.WriteString(teamNumber[0])
+	}
+	url := sb.String()
+
+	body, err := ftchttp.Get(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var output Scores
+	err = json.Unmarshal(body, &output)
+	if err != nil {
+		return nil, err
+	}
+
+	// Return the output
+	return output.MatchScores, nil
+}
+
+func (ms MatchScores) String() string {
+	body, _ := json.Marshal(ms)
+	return string(body)
+}
+
+func (ma MatchAlliance) String() string {
+	body, _ := json.Marshal(ma)
+	return string(body)
 }

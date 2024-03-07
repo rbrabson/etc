@@ -3,6 +3,7 @@ package ftc
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
@@ -54,9 +55,29 @@ type LeagueRanking struct {
 	MatchesCounted    int     `json:"matchesCounted"`
 }
 
-// GetLeagues returns the list of rankings for FTC leagues
-func GetLeagues(season string) ([]League, error) {
-	url := fmt.Sprintf("%s/%s/leagues", server, season)
+// GetLeagues returns the list of rankings for FTC leagues. Supported qparms are `regionCode` and `leagueCode`.
+func GetLeagues(season string, qparms ...map[string]string) ([]League, error) {
+	sb := strings.Builder{}
+	sb.WriteString(server)
+	sb.WriteString("/")
+	sb.WriteString(season)
+	sb.WriteString("/leagues")
+	if len(qparms) > 0 {
+		firstQparm := true
+		for k, v := range qparms[0] {
+			if firstQparm {
+				sb.WriteString("?")
+				firstQparm = false
+			} else {
+				sb.WriteString("&")
+			}
+			sb.WriteString(k)
+			sb.WriteString("=")
+			sb.WriteString(v)
+		}
+	}
+	url := sb.String()
+
 	body, err := ftchttp.Get(url)
 	if err != nil {
 		return nil, err
@@ -75,6 +96,7 @@ func GetLeagues(season string) ([]League, error) {
 // GetLeagueMembers returns the list of members in the league
 func GetLeagueMembers(season string, regionCode string, leagueCode string) ([]int, error) {
 	url := fmt.Sprintf("%s/%s/leagues/members/%s/%s", server, season, regionCode, leagueCode)
+
 	body, err := ftchttp.Get(url)
 	if err != nil {
 		return nil, err
@@ -90,9 +112,10 @@ func GetLeagueMembers(season string, regionCode string, leagueCode string) ([]in
 	return output.Members, nil
 }
 
-// GetLeagueRankings returns the team rankings in a given league
+// GetLeagueRankings returns the team rankings in a given league.
 func GetLeagueRankings(season string, regionCode string, leagueCode string) ([]LeagueRanking, error) {
 	url := fmt.Sprintf("%s/%s/leagues/rankings/%s/%s", server, season, regionCode, leagueCode)
+
 	body, err := ftchttp.Get(url)
 	if err != nil {
 		return nil, err

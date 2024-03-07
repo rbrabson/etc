@@ -1,9 +1,21 @@
 package ftc
 
+import (
+	"encoding/json"
+	"fmt"
+	"strings"
+
+	"github.com/rbrabson/ftc/internal/ftchttp"
+)
+
 type Schedules struct {
-	Schedule []Schedule `json:"schedule"`
+	Schedule []EventSchedule `json:"schedule"`
 }
-type Schedule struct {
+type HybridSchedules struct {
+	Schedule []HybridSchedule `json:"schedule"`
+}
+
+type EventSchedule struct {
 	Description     string          `json:"description,omitempty"`
 	Field           string          `json:"field,omitempty"`
 	TournamentLevel string          `json:"tournamentLevel,omitempty"`
@@ -13,6 +25,7 @@ type Schedule struct {
 	Teams           []ScheduledTeam `json:"teams"`
 	ModifiedOn      string          `json:"modifiedOn,omitempty"`
 }
+
 type ScheduledTeam struct {
 	TeamNumber        int    `json:"teamNumber,omitempty"`
 	DisplayTeamNumber string `json:"displayTeamNumber,omitempty"`
@@ -21,4 +34,87 @@ type ScheduledTeam struct {
 	TeamName          string `json:"teamName,omitempty"`
 	Surrogate         bool   `json:"surrogate,omitempty"`
 	NoShow            bool   `json:"noShow,omitempty"`
+	Dq                *bool  `json:"dq,omitempty"`
+	OnField           *bool  `json:"onField,omitempty"`
+}
+
+type HybridSchedule struct {
+	Description              string          `json:"description"`
+	TournamentLevel          string          `json:"tournamentLevel"`
+	Series                   int             `json:"series"`
+	MatchNumber              int             `json:"matchNumber"`
+	StartTime                string          `json:"startTime"`
+	ActualStartTime          string          `json:"actualStartTime"`
+	PostResultTime           string          `json:"postResultTime"`
+	ScoreRedFinal            int             `json:"scoreRedFinal"`
+	ScoreRedFoul             int             `json:"scoreRedFoul"`
+	ScoreRedAuto             int             `json:"scoreRedAuto"`
+	ScoreBlueFinal           int             `json:"scoreBlueFinal"`
+	ScoreBlueFoul            int             `json:"scoreBlueFoul"`
+	ScoreBlueAuto            int             `json:"scoreBlueAuto"`
+	ScoreBlueDriveControlled any             `json:"scoreBlueDriveControlled"`
+	ScoreBlueEndgame         any             `json:"scoreBlueEndgame"`
+	RedWins                  bool            `json:"redWins"`
+	BlueWins                 bool            `json:"blueWins"`
+	Teams                    []ScheduledTeam `json:"teams"`
+}
+
+// GetHybridSchedule gets the hybrid schedule information for a given event.
+func GetHybridSchedule(season string, eventCode string, tournamentLevel MatchType) ([]HybridSchedule, error) {
+	url := fmt.Sprintf("%s/%s/schedule/%s?%s", server, season, eventCode, string(tournamentLevel))
+
+	body, err := ftchttp.Get(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var output []HybridSchedule
+	err = json.Unmarshal(body, &output)
+	if err != nil {
+		return nil, err
+	}
+
+	// Return the output
+	return output, nil
+}
+
+// GetEventSchedule gets the match schedule for a given event.
+func GetEventSchedule(season string, eventCode string, teamNumber ...string) ([]EventSchedule, error) {
+	sb := strings.Builder{}
+	sb.WriteString(server)
+	sb.WriteString("/")
+	sb.WriteString(season)
+	sb.WriteString("/schedule")
+	sb.WriteString("/")
+	sb.WriteString(eventCode)
+	if len(teamNumber) > 0 {
+		sb.WriteString("?")
+		sb.WriteString(teamNumber[0])
+	}
+	url := sb.String()
+
+	body, err := ftchttp.Get(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var output []EventSchedule
+	err = json.Unmarshal(body, &output)
+	if err != nil {
+		return nil, err
+	}
+
+	// Return the output
+	return output, nil
+}
+
+func (s EventSchedule) String() string {
+
+	body, _ := json.Marshal(s)
+	return string(body)
+}
+
+func (s HybridSchedule) String() string {
+	body, _ := json.Marshal(s)
+	return string(body)
 }

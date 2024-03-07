@@ -22,6 +22,7 @@ type General struct {
 // GetGeneral returns the information for the FTC server API
 func GetGeneral() (*General, error) {
 	url := server
+
 	body, err := ftchttp.Get(url)
 	if err != nil {
 		return nil, err

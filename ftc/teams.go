@@ -2,7 +2,7 @@ package ftc
 
 import (
 	"encoding/json"
-	"fmt"
+	"strings"
 
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
@@ -36,10 +36,19 @@ type Team struct {
 }
 
 // GetTeams returns a `page` of FTC teams.
-func GetTeams(season string) (*Teams, error) {
-	url := fmt.Sprintf("%s/%s/teams?teamNumber=7083", server, season)
-	body, err := ftchttp.Get(url)
+func GetTeams(season string, teamNumber ...string) (*Teams, error) {
+	sb := strings.Builder{}
+	sb.WriteString(server)
+	sb.WriteString("/")
+	sb.WriteString(season)
+	sb.WriteString("/teams")
+	if len(teamNumber) > 0 {
+		sb.WriteString("?")
+		sb.WriteString(teamNumber[0])
+	}
+	url := sb.String()
 
+	body, err := ftchttp.Get(url)
 	if err != nil {
 		return nil, err
 	}
