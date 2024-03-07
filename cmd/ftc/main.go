@@ -25,12 +25,21 @@ func main() {
 		fmt.Println("Body", general)
 	*/
 
-	teams, err := ftc.GetTeams("2023")
+	/*
+		teams, err := ftc.GetTeams("2023")
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		fmt.Println(teams)
+	*/
+
+	events, err := ftc.GetEvents("2023")
 	if err != nil {
 		log.Error(err)
 		return
 	}
-	fmt.Println(teams)
+	fmt.Println(events)
 
 	/* TODO: uncomment this out when done
 	// Wait for the user to interrupt the server and then exit

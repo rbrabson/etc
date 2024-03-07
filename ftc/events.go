@@ -1,9 +1,16 @@
 package ftc
 
+import (
+	"encoding/json"
+	"fmt"
+
+	"github.com/rbrabson/ftc/internal/ftchttp"
+)
+
 // Events is information about FTC events.
 type Events struct {
-	Event      []Events `json:"events,omitempty"`
-	EventCount int      `json:"eventCount,omitempty"`
+	Events     []Event `json:"events,omitempty"`
+	EventCount int     `json:"eventCount,omitempty"`
 }
 
 // Event is information about a given FTC event.
@@ -31,6 +38,29 @@ type Event struct {
 	Coordinates   *string `json:"coordinates,omitempty"`
 	Webcasts      *string `json:"webcasts,omitempty"`
 	Timezone      string  `json:"timezone,omitempty"`
-	DateStart     string  `json:"dateStart,omitempty"`
-	DateEnd       string  `json:"dateEnd,omitempty"`
+	DateStart     FtcTime `json:"dateStart,omitempty"`
+	DateEnd       FtcTime `json:"dateEnd,omitempty"`
+}
+
+func GetEvents(season string) ([]Event, error) {
+	url := fmt.Sprintf("%s/%s/events", server, season)
+	body, err := ftchttp.Get(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var output Events
+	err = json.Unmarshal(body, &output)
+	if err != nil {
+		return nil, err
+	}
+
+	// Return the output
+	return output.Events, nil
+}
+
+// String returns a string representation of an Event. In this case, it is a json string.
+func (e Event) String() string {
+	body, _ := json.Marshal(e)
+	return string(body)
 }
