@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/joho/godotenv"
 	"github.com/rbrabson/ftc/ftc"
 	log "github.com/sirupsen/logrus"
@@ -22,11 +24,11 @@ func main() {
 		fmt.Println("Body", general)
 	*/
 
-	_, err := ftc.GetTeams("2023")
+	teams, err := ftc.GetTeams("2023")
 	if err != nil {
 		log.Error(err)
 	}
-	// fmt.Println("Body", leagues)
+	fmt.Println(teams)
 
 	/* TODO: uncomment this out when done
 	// Wait for the user to interrupt the server and then exit

@@ -7,10 +7,13 @@ import (
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
+// Leagues is the data for the FTC leagues
 type Leagues struct {
 	Leagues     []League `json:"leagues"`
 	LeagueCount int      `json:"leagueCount"`
 }
+
+// League is the data for a given FTC league
 type League struct {
 	Region           string `json:"region"`
 	Code             string `json:"code"`
@@ -21,9 +24,12 @@ type League struct {
 	Location         string `json:"location"`
 }
 
+// LeagueRankings is the list of rangings for a given league.
 type LeagueRankings struct {
 	Rankings []LeagueRankings `json:"rankings"`
 }
+
+// LeagueRanking is the ranking for a given league.
 type LeagueRanking struct {
 	Rank              int     `json:"rank"`
 	TeamNumber        int     `json:"teamNumber"`
@@ -44,6 +50,7 @@ type LeagueRanking struct {
 	MatchesCounted    int     `json:"matchesCounted"`
 }
 
+// GetLeagues returns the list of rankings for FTC leagues
 func GetLeagues(season string) ([]League, error) {
 	url := fmt.Sprintf("%s/%s/leagues", server, season)
 	body, err := ftchttp.Get(url)

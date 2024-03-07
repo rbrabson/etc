@@ -11,7 +11,8 @@ var (
 	authKey  string
 )
 
-// init retrieves the username and authentication key and creates a base64-encoded token for authentication
+// init retrieves the username and authentication key used for authentication on HTTP requests sent
+// to the FTC server API endpoint.
 func init() {
 	godotenv.Load()
 

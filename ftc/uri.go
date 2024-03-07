@@ -10,7 +10,7 @@ var (
 	server string
 )
 
-// init retrieves the username and authentication key and creates a base64-encoded token for authentication
+// init retrieves the base server URL to be used when sending HTTP requests
 func init() {
 	godotenv.Load()
 

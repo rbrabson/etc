@@ -2,10 +2,13 @@ package ftchttp
 
 import (
 	"crypto/tls"
+	"fmt"
 	"io"
 	"net/http"
 )
 
+// Get sends an HTTP GET request to the FTC Server API endpoint and returns the data provided by
+// that endpoint in a byte array.
 func Get(url string) ([]byte, error) {
 	// Setup the HTTP client for the request
 	client := &http.Client{
@@ -14,7 +17,7 @@ func Get(url string) ([]byte, error) {
 		},
 	}
 
-	// Set up HTTPS request with basic authorization.
+	// Set up HTTP request with basic authorization.
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
@@ -27,6 +30,12 @@ func Get(url string) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
+
+	// HTTP request was not successful
+	if resp.StatusCode < http.StatusOK || resp.StatusCode >= http.StatusMultipleChoices {
+		err = fmt.Errorf("HTTP Status Code: %d (%s)", resp.StatusCode, http.StatusText(resp.StatusCode))
+		return nil, err
+	}
 
 	// Read the output from the server
 	body, err := io.ReadAll(resp.Body)

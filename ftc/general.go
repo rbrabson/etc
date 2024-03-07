@@ -6,6 +6,7 @@ import (
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
+// General provives information for the FTC server API
 type General struct {
 	Name                    string `json:"name"`
 	APIVersion              string `json:"apiVersion"`
@@ -18,6 +19,7 @@ type General struct {
 	MaxSeason               int    `json:"maxSeason"`
 }
 
+// GetGeneral returns the information for the FTC server API
 func GetGeneral() (*General, error) {
 	url := server
 	body, err := ftchttp.Get(url)
