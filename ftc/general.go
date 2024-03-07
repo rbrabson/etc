@@ -3,7 +3,7 @@ package ftc
 import (
 	"encoding/json"
 
-	"github.com/rbrabson/ftc/ftchttp"
+	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
 type General struct {
@@ -21,6 +21,9 @@ type General struct {
 func GetGeneral() (*General, error) {
 	url := server
 	body, err := ftchttp.Get(url)
+	if err != nil {
+		return nil, err
+	}
 
 	var output General
 	err = json.Unmarshal(body, &output)
