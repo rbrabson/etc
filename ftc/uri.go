@@ -14,5 +14,5 @@ var (
 func init() {
 	godotenv.Load()
 
-	server = os.Getenv("SERVER")
+	server = os.Getenv("FTC_SERVER")
 }

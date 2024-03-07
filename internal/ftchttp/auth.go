@@ -16,6 +16,6 @@ var (
 func init() {
 	godotenv.Load()
 
-	username = os.Getenv("USERNAME")
-	authKey = os.Getenv("AUTHORIZATION_KEY")
+	username = os.Getenv("FTC_USERNAME")
+	authKey = os.Getenv("FTC_AUTHORIZATION_KEY")
 }
