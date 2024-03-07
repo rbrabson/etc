@@ -8,13 +8,17 @@ import (
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
-type Schedules struct {
+// EventSchedules is the list of event schedules
+type EventScheduleSchedules struct {
 	Schedule []EventSchedule `json:"schedule"`
 }
+
+// HybridSchedules is the list of results for a schedule at a given event
 type HybridSchedules struct {
 	Schedule []HybridSchedule `json:"schedule"`
 }
 
+// EventSchedule is the schedule at a given event
 type EventSchedule struct {
 	Description     string          `json:"description,omitempty"`
 	Field           string          `json:"field,omitempty"`
@@ -26,18 +30,7 @@ type EventSchedule struct {
 	ModifiedOn      string          `json:"modifiedOn,omitempty"`
 }
 
-type ScheduledTeam struct {
-	TeamNumber        int    `json:"teamNumber,omitempty"`
-	DisplayTeamNumber string `json:"displayTeamNumber,omitempty"`
-	Station           string `json:"station,omitempty"`
-	Team              string `json:"team,omitempty"`
-	TeamName          string `json:"teamName,omitempty"`
-	Surrogate         bool   `json:"surrogate,omitempty"`
-	NoShow            bool   `json:"noShow,omitempty"`
-	Dq                *bool  `json:"dq,omitempty"`
-	OnField           *bool  `json:"onField,omitempty"`
-}
-
+// HybridSchedule is the result for a scheduled match at a given event
 type HybridSchedule struct {
 	Description              string          `json:"description"`
 	TournamentLevel          string          `json:"tournamentLevel"`
@@ -57,6 +50,19 @@ type HybridSchedule struct {
 	RedWins                  bool            `json:"redWins"`
 	BlueWins                 bool            `json:"blueWins"`
 	Teams                    []ScheduledTeam `json:"teams"`
+}
+
+// ScheduledTeam is the team that is scheduled at a given tournament
+type ScheduledTeam struct {
+	TeamNumber        int    `json:"teamNumber,omitempty"`
+	DisplayTeamNumber string `json:"displayTeamNumber,omitempty"`
+	Station           string `json:"station,omitempty"`
+	Team              string `json:"team,omitempty"`
+	TeamName          string `json:"teamName,omitempty"`
+	Surrogate         bool   `json:"surrogate,omitempty"`
+	NoShow            bool   `json:"noShow,omitempty"`
+	Dq                *bool  `json:"dq,omitempty"`
+	OnField           *bool  `json:"onField,omitempty"`
 }
 
 // GetHybridSchedule gets the hybrid schedule information for a given event.

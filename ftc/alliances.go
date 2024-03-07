@@ -7,20 +7,26 @@ import (
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
+// AllianceSelections is the list of alliance selections.
 type AllianceSelections struct {
 	Selections []AllianceSelection `json:"selections"`
 	Count      int                 `json:"count"`
 }
+
+// AllianceSelection is the alliance results for a given team
 type AllianceSelection struct {
 	Index  int    `json:"index"`
 	Team   int    `json:"team"`
 	Result string `json:"result"`
 }
 
+// Alliances is the list of alliances in a given tournament
 type Alliances struct {
 	Alliances []Alliance `json:"alliances"`
 	Count     int        `json:"count"`
 }
+
+// Alliance is the results for one alliance in a match between two alliances
 type Alliance struct {
 	Number         int     `json:"number"`
 	Name           string  `json:"name"`

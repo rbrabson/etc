@@ -10,14 +10,18 @@ import (
 // Type of FTC match
 type MatchType string
 
+// The types of FTC matches
 const (
 	QUALIFIER MatchType = "qual"
 	PLAYOFF   MatchType = "playoff"
 )
 
+// Matches is the list of matches
 type Matches struct {
 	Matches []Match `json:"matches"`
 }
+
+// Match is a match that takes place at a given event
 type Match struct {
 	ActualStartTime string      `json:"actualStartTime"`
 	Description     string      `json:"description"`

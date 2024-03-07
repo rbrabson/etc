@@ -8,9 +8,12 @@ import (
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
+// Awards is the list of awards for a given season
 type Awards struct {
 	Awards []Award `json:"awards"`
 }
+
+// Award is an award that is given in a given season
 type Award struct {
 	AwardID     int    `json:"awardId"`
 	Name        string `json:"name"`
@@ -18,9 +21,12 @@ type Award struct {
 	ForPerson   bool   `json:"forPerson"`
 }
 
+// TeamAwards is the list of awards received by a team
 type TeamAwards struct {
 	Awards []TeamAward `json:"awards"`
 }
+
+// TeamAward is an award that is received by a given team
 type TeamAward struct {
 	AwardID      int    `json:"awardId"`
 	EventCode    string `json:"eventCode"`
@@ -32,6 +38,7 @@ type TeamAward struct {
 	Person       any    `json:"person"`
 }
 
+// GetAwardListing returns the list of awards for a given season
 func GetAwardListing(season string) ([]Award, error) {
 	url := fmt.Sprintf("{{baseUrl}}/v2.0/%s/awards/list", season)
 
@@ -50,7 +57,7 @@ func GetAwardListing(season string) ([]Award, error) {
 	return output, nil
 }
 
-// GetEventAwards gets the list of awards at a given event
+// GetEventAwards gets the list of awards given at an event
 func GetEventAwards(season string, eventCode string, teamNumber ...string) ([]TeamAward, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)

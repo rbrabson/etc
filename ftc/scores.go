@@ -7,9 +7,12 @@ import (
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
+// Scores is the list of match scores at a given event.
 type Scores struct {
 	MatchScores []MatchScores `json:"matchScores"`
 }
+
+// MatchScores is the results of a match at a given event.
 type MatchScores struct {
 	MatchLevel    string          `json:"matchLevel"`
 	MatchSeries   int             `json:"matchSeries"`
@@ -18,6 +21,7 @@ type MatchScores struct {
 	Alliances     []MatchAlliance `json:"alliances"`
 }
 
+// MatchAlliance is the detailed results for a given team in a match at a given event.
 type MatchAlliance struct {
 	Alliance                string `json:"alliance"`
 	Team                    int    `json:"team"`
@@ -59,6 +63,7 @@ type MatchAlliance struct {
 	TotalPoints             int    `json:"totalPoints"`
 }
 
+// GetEventMatchResults returns the results for a given event
 func GetEventMatchResults(season string, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]MatchScores, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
