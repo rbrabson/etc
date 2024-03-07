@@ -12,8 +12,8 @@ type General struct {
 	APIVersion              string  `json:"apiVersion,omitempty"`
 	ServiceMainifestName    *string `json:"serviceMainifestName,omitempty"`
 	ServiceMainifestVersion *string `json:"serviceMainifestVersion,omitempty"`
-	CodePackageName         string  `json:"codePackageName,omitempty"`
-	CodePackageVersion      string  `json:"codePackageVersion,omitempty"`
+	CodePackageName         string  `json:"codePackageName"`
+	CodePackageVersion      string  `json:"codePackageVersion"`
 	Status                  string  `json:"status,omitempty"`
 	CurrentSeason           int     `json:"currentSeason,omitempty"`
 	MaxSeason               int     `json:"maxSeason,omitempty"`
