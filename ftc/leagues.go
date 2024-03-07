@@ -9,19 +9,19 @@ import (
 
 // Leagues is the data for the FTC leagues
 type Leagues struct {
-	Leagues     []League `json:"leagues"`
-	LeagueCount int      `json:"leagueCount"`
+	Leagues     []League `json:"leagues,omitempty"`
+	LeagueCount int      `json:"leagueCount,omitempty"`
 }
 
 // League is the data for a given FTC league
 type League struct {
-	Region           string `json:"region"`
-	Code             string `json:"code"`
-	Name             string `json:"name"`
-	Remote           bool   `json:"remote"`
-	ParentLeagueCode any    `json:"parentLeagueCode"`
-	ParentLeagueName any    `json:"parentLeagueName"`
-	Location         string `json:"location"`
+	Region           string `json:"region,omitempty"`
+	Code             string `json:"code,omitempty"`
+	Name             string `json:"name,omitempty"`
+	Remote           bool   `json:"remote,omitempty"`
+	ParentLeagueCode any    `json:"parentLeagueCode,omitempty"`
+	ParentLeagueName any    `json:"parentLeagueName,omitempty"`
+	Location         string `json:"location,omitempty"`
 }
 
 // LeagueRankings is the list of rangings for a given league.
@@ -31,23 +31,23 @@ type LeagueRankings struct {
 
 // LeagueRanking is the ranking for a given league.
 type LeagueRanking struct {
-	Rank              int     `json:"rank"`
-	TeamNumber        int     `json:"teamNumber"`
-	DisplayTeamNumber string  `json:"displayTeamNumber"`
-	TeamName          any     `json:"teamName"`
-	SortOrder1        float64 `json:"sortOrder1"`
-	SortOrder2        float64 `json:"sortOrder2"`
-	SortOrder3        float64 `json:"sortOrder3"`
-	SortOrder4        float64 `json:"sortOrder4"`
-	SortOrder5        float64 `json:"sortOrder5"`
-	SortOrder6        float64 `json:"sortOrder6"`
-	Wins              int     `json:"wins"`
-	Losses            int     `json:"losses"`
-	Ties              int     `json:"ties"`
-	QualAverage       int     `json:"qualAverage"`
-	Dq                int     `json:"dq"`
-	MatchesPlayed     int     `json:"matchesPlayed"`
-	MatchesCounted    int     `json:"matchesCounted"`
+	Rank              int     `json:"rank,omitempty"`
+	TeamNumber        int     `json:"teamNumber,omitempty"`
+	DisplayTeamNumber string  `json:"displayTeamNumber,omitempty"`
+	TeamName          any     `json:"teamName,omitempty"`
+	SortOrder1        float64 `json:"sortOrder1,omitempty"`
+	SortOrder2        float64 `json:"sortOrder2,omitempty"`
+	SortOrder3        float64 `json:"sortOrder3,omitempty"`
+	SortOrder4        float64 `json:"sortOrder4,omitempty"`
+	SortOrder5        float64 `json:"sortOrder5,omitempty"`
+	SortOrder6        float64 `json:"sortOrder6,omitempty"`
+	Wins              int     `json:"wins,omitempty"`
+	Losses            int     `json:"losses,omitempty"`
+	Ties              int     `json:"ties,omitempty"`
+	QualAverage       int     `json:"qualAverage,omitempty"`
+	Dq                int     `json:"dq,omitempty"`
+	MatchesPlayed     int     `json:"matchesPlayed,omitempty"`
+	MatchesCounted    int     `json:"matchesCounted,omitempty"`
 }
 
 // GetLeagues returns the list of rankings for FTC leagues

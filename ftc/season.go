@@ -10,64 +10,64 @@ import (
 // Teams returns a list of FTC teams. The information is returned in `pages`, so multiple requests
 // may be required to get all FTC teams.
 type Teams struct {
-	Teams          []Team `json:"teams"`
-	TeamCountTotal int    `json:"teamCountTotal"`
-	TeamCountPage  int    `json:"teamCountPage"`
-	PageCurrent    int    `json:"pageCurrent"`
-	PageTotal      int    `json:"pageTotal"`
+	Teams          []Team `json:"teams,omitempty"`
+	TeamCountTotal int    `json:"teamCountTotal,omitempty"`
+	TeamCountPage  int    `json:"teamCountPage,omitempty"`
+	PageCurrent    int    `json:"pageCurrent,omitempty"`
+	PageTotal      int    `json:"pageTotal,omitempty"`
 }
 
 // Team is information for a given FTC team.
 type Team struct {
-	TeamNumber        int     `json:"teamNumber"`
-	DisplayTeamNumber string  `json:"displayTeamNumber"`
-	NameFull          string  `json:"nameFull"`
-	NameShort         string  `json:"nameShort"`
-	SchoolName        *string `json:"schoolName"`
-	City              string  `json:"city"`
-	StateProv         string  `json:"stateProv"`
-	Country           string  `json:"country"`
-	Website           *string `json:"website"`
-	RookieYear        int     `json:"rookieYear"`
-	RobotName         *string `json:"robotName"`
-	DistrictCode      *string `json:"districtCode"`
-	HomeCMP           *string `json:"homeCMP"`
-	HomeRegion        *string `json:"homeRegion"`
+	TeamNumber        int     `json:"teamNumber,omitempty"`
+	DisplayTeamNumber string  `json:"displayTeamNumber,omitempty"`
+	NameFull          string  `json:"nameFull,omitempty"`
+	NameShort         string  `json:"nameShort,omitempty"`
+	SchoolName        *string `json:"schoolName,omitempty"`
+	City              string  `json:"city,omitempty"`
+	StateProv         string  `json:"stateProv,omitempty"`
+	Country           string  `json:"country,omitempty"`
+	Website           *string `json:"website,omitempty"`
+	RookieYear        int     `json:"rookieYear,omitempty"`
+	RobotName         *string `json:"robotName,omitempty"`
+	DistrictCode      *string `json:"districtCode,omitempty"`
+	HomeCMP           *string `json:"homeCMP,omitempty"`
+	HomeRegion        *string `json:"homeRegion,omitempty"`
 }
 
 // Events is information about FTC events.
 type Events struct {
-	Event      []Events `json:"events"`
-	EventCount int      `json:"eventCount"`
+	Event      []Events `json:"events,omitempty"`
+	EventCount int      `json:"eventCount,omitempty"`
 }
 
 // Event is information about a given FTC event.
 type Event struct {
-	EventID       string  `json:"eventId"`
-	Code          string  `json:"code"`
-	DivisionCode  *string `json:"divisionCode"`
-	Name          string  `json:"name"`
-	Remote        bool    `json:"remote"`
-	Hybrid        bool    `json:"hybrid"`
-	FieldCount    int     `json:"fieldCount"`
-	Published     bool    `json:"published"`
-	Type          string  `json:"type"`
-	TypeName      string  `json:"typeName"`
-	RegionCode    string  `json:"regionCode"`
-	LeagueCode    *string `json:"leagueCode"`
-	DistrictCode  string  `json:"districtCode"`
-	Venue         string  `json:"venue"`
-	Address       string  `json:"address"`
-	City          string  `json:"city"`
-	Stateprov     string  `json:"stateprov"`
-	Country       string  `json:"country"`
-	Website       string  `json:"website"`
-	LiveStreamURL string  `json:"liveStreamUrl"`
-	Coordinates   *string `json:"coordinates"`
-	Webcasts      *string `json:"webcasts"`
-	Timezone      string  `json:"timezone"`
-	DateStart     string  `json:"dateStart"`
-	DateEnd       string  `json:"dateEnd"`
+	EventID       string  `json:"eventId,omitempty"`
+	Code          string  `json:"code,omitempty"`
+	DivisionCode  *string `json:"divisionCode,omitempty"`
+	Name          string  `json:"name,omitempty"`
+	Remote        bool    `json:"remote,omitempty"`
+	Hybrid        bool    `json:"hybrid,omitempty"`
+	FieldCount    int     `json:"fieldCount,omitempty"`
+	Published     bool    `json:"published,omitempty"`
+	Type          string  `json:"type,omitempty"`
+	TypeName      string  `json:"typeName,omitempty"`
+	RegionCode    string  `json:"regionCode,omitempty"`
+	LeagueCode    *string `json:"leagueCode,omitempty"`
+	DistrictCode  string  `json:"districtCode,omitempty"`
+	Venue         string  `json:"venue,omitempty"`
+	Address       string  `json:"address,omitempty"`
+	City          string  `json:"city,omitempty"`
+	Stateprov     string  `json:"stateprov,omitempty"`
+	Country       string  `json:"country,omitempty"`
+	Website       string  `json:"website,omitempty"`
+	LiveStreamURL string  `json:"liveStreamUrl,omitempty"`
+	Coordinates   *string `json:"coordinates,omitempty"`
+	Webcasts      *string `json:"webcasts,omitempty"`
+	Timezone      string  `json:"timezone,omitempty"`
+	DateStart     string  `json:"dateStart,omitempty"`
+	DateEnd       string  `json:"dateEnd,omitempty"`
 }
 
 // GetTeams returns a `page` of FTC teams.

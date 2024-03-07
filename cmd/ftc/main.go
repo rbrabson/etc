@@ -20,6 +20,7 @@ func main() {
 		general, err := ftc.GetGeneral()
 		if err != nil {
 			log.Error(err)
+			return
 		}
 		fmt.Println("Body", general)
 	*/
@@ -27,6 +28,7 @@ func main() {
 	teams, err := ftc.GetTeams("2023")
 	if err != nil {
 		log.Error(err)
+		return
 	}
 	fmt.Println(teams)
 
