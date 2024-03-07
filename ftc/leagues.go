@@ -108,8 +108,14 @@ func GetLeagueRankings(season string, regionCode string, leagueCode string) ([]L
 	return output.Rankings, nil
 }
 
-// String returns a string representation of Leagues. In this case, it is a json string.
-func (general *League) String() string {
-	body, _ := json.Marshal(general)
+// String returns a string representation of League. In this case, it is a json string.
+func (l League) String() string {
+	body, _ := json.Marshal(l)
+	return string(body)
+}
+
+// String returns a string representation of LeagueRanking. In this case, it is a json string.
+func (l LeagueRanking) String() string {
+	body, _ := json.Marshal(l)
 	return string(body)
 }

@@ -34,7 +34,7 @@ type Advancement struct {
 // GetAdvancementFrom returns the source events from which teams advanced from to reach
 // the specified event.
 func GetAdvancementFrom(season string, eventCode string) (*AdvancementsFrom, error) {
-	url := fmt.Sprintf("%s/%s/advancement/%s", server, season, eventCode)
+	url := fmt.Sprintf("%s/%s/advancement/%s/source", server, season, eventCode)
 
 	body, err := ftchttp.Get(url)
 	if err != nil {
@@ -83,4 +83,19 @@ func GetAdvancementTo(season string, eventCode string, excludeSkipped ...bool) (
 
 	// Return the output
 	return &output, nil
+}
+
+func (a AdvancementsTo) String() string {
+	body, _ := json.Marshal(a)
+	return string(body)
+}
+
+func (a AdvancementsFrom) String() string {
+	body, _ := json.Marshal(a)
+	return string(body)
+}
+
+func (a Advancement) String() string {
+	body, _ := json.Marshal(a)
+	return string(body)
 }

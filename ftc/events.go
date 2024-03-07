@@ -38,8 +38,8 @@ type Event struct {
 	Coordinates   *string `json:"coordinates,omitempty"`
 	Webcasts      *string `json:"webcasts,omitempty"`
 	Timezone      string  `json:"timezone,omitempty"`
-	DateStart     FtcTime `json:"dateStart,omitempty"`
-	DateEnd       FtcTime `json:"dateEnd,omitempty"`
+	DateStart     Time    `json:"dateStart,omitempty"`
+	DateEnd       Time    `json:"dateEnd,omitempty"`
 }
 
 func GetEvents(season string) ([]Event, error) {
