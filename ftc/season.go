@@ -10,11 +10,11 @@ import (
 // Teams returns a list of FTC teams. The information is returned in `pages`, so multiple requests
 // may be required to get all FTC teams.
 type Teams struct {
-	Teams          []Team `json:"teams,omitempty"`
-	TeamCountTotal int    `json:"teamCountTotal,omitempty"`
-	TeamCountPage  int    `json:"teamCountPage,omitempty"`
-	PageCurrent    int    `json:"pageCurrent,omitempty"`
-	PageTotal      int    `json:"pageTotal,omitempty"`
+	Teams          []Team `json:"teams"`
+	TeamCountTotal int    `json:"teamCountTotal"`
+	TeamCountPage  int    `json:"teamCountPage"`
+	PageCurrent    int    `json:"pageCurrent"`
+	PageTotal      int    `json:"pageTotal"`
 }
 
 // Team is information for a given FTC team.

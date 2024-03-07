@@ -9,19 +9,19 @@ import (
 
 // Leagues is the data for the FTC leagues
 type Leagues struct {
-	Leagues     []League `json:"leagues,omitempty"`
-	LeagueCount int      `json:"leagueCount,omitempty"`
+	Leagues     []League `json:"leagues"`
+	LeagueCount int      `json:"leagueCount"`
 }
 
 // League is the data for a given FTC league
 type League struct {
-	Region           string `json:"region,omitempty"`
-	Code             string `json:"code,omitempty"`
-	Name             string `json:"name,omitempty"`
-	Remote           bool   `json:"remote,omitempty"`
-	ParentLeagueCode any    `json:"parentLeagueCode,omitempty"`
-	ParentLeagueName any    `json:"parentLeagueName,omitempty"`
-	Location         string `json:"location,omitempty"`
+	Region           string  `json:"region,omitempty"`
+	Code             string  `json:"code,omitempty"`
+	Name             string  `json:"name,omitempty"`
+	Remote           bool    `json:"remote,omitempty"`
+	ParentLeagueCode *string `json:"parentLeagueCode,omitempty"`
+	ParentLeagueName *string `json:"parentLeagueName,omitempty"`
+	Location         string  `json:"location,omitempty"`
 }
 
 // LeagueRankings is the list of rangings for a given league.
@@ -34,7 +34,7 @@ type LeagueRanking struct {
 	Rank              int     `json:"rank,omitempty"`
 	TeamNumber        int     `json:"teamNumber,omitempty"`
 	DisplayTeamNumber string  `json:"displayTeamNumber,omitempty"`
-	TeamName          any     `json:"teamName,omitempty"`
+	TeamName          *string `json:"teamName,omitempty"`
 	SortOrder1        float64 `json:"sortOrder1,omitempty"`
 	SortOrder2        float64 `json:"sortOrder2,omitempty"`
 	SortOrder3        float64 `json:"sortOrder3,omitempty"`

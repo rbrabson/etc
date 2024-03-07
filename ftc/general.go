@@ -8,15 +8,15 @@ import (
 
 // General provives information for the FTC server API
 type General struct {
-	Name                    string `json:"name,omitempty"`
-	APIVersion              string `json:"apiVersion,omitempty"`
-	ServiceMainifestName    any    `json:"serviceMainifestName,omitempty"`
-	ServiceMainifestVersion any    `json:"serviceMainifestVersion,omitempty"`
-	CodePackageName         string `json:"codePackageName,omitempty"`
-	CodePackageVersion      string `json:"codePackageVersion,omitempty"`
-	Status                  string `json:"status,omitempty"`
-	CurrentSeason           int    `json:"currentSeason,omitempty"`
-	MaxSeason               int    `json:"maxSeason,omitempty"`
+	Name                    string  `json:"name,omitempty"`
+	APIVersion              string  `json:"apiVersion,omitempty"`
+	ServiceMainifestName    *string `json:"serviceMainifestName,omitempty"`
+	ServiceMainifestVersion *string `json:"serviceMainifestVersion,omitempty"`
+	CodePackageName         string  `json:"codePackageName,omitempty"`
+	CodePackageVersion      string  `json:"codePackageVersion,omitempty"`
+	Status                  string  `json:"status,omitempty"`
+	CurrentSeason           int     `json:"currentSeason,omitempty"`
+	MaxSeason               int     `json:"maxSeason,omitempty"`
 }
 
 // GetGeneral returns the information for the FTC server API
