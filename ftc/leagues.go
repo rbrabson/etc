@@ -1,11 +1,10 @@
 package ftc
 
 import (
-	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
+
+	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
 type Leagues struct {
@@ -47,33 +46,7 @@ type LeagueRanking struct {
 
 func GetLeagues(season string) ([]League, error) {
 	url := fmt.Sprintf("%s/%s/leagues", server, season)
-
-	// Setup the HTTP client for the request
-	client := &http.Client{
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		},
-	}
-
-	// Set up HTTPS request with basic authorization.
-	req, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		return nil, err
-	}
-	req.SetBasicAuth(username, authKey)
-
-	// Send the request and get the response
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("HTTP Status Code: %v", resp.StatusCode)
-	}
-
-	// Read the output from the server
-	body, err := io.ReadAll(resp.Body)
+	body, err := ftchttp.Get(url)
 	if err != nil {
 		return nil, err
 	}

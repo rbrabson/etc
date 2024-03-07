@@ -1,10 +1,9 @@
 package ftc
 
 import (
-	"crypto/tls"
 	"fmt"
-	"io"
-	"net/http"
+
+	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
 type Teams struct {
@@ -65,30 +64,8 @@ type Event struct {
 
 func GetTeams(season string) ([]string, error) {
 	url := fmt.Sprintf("%s/%s/teams?teamNumber=7083", server, season)
+	body, err := ftchttp.Get(url)
 
-	// Setup the HTTP client for the request
-	client := &http.Client{
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		},
-	}
-
-	// Set up HTTPS request with basic authorization.
-	req, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		return nil, err
-	}
-	req.SetBasicAuth(username, authKey)
-
-	// Send the request and get the response
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	// Read the output from the server
-	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
