@@ -16,5 +16,5 @@ type Advancement struct {
 	Status      string `json:"status"`
 }
 
-// GetAdvancement
+// GetAdvancemenTo
 // GetAdvancedFrom
