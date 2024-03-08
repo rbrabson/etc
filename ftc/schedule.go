@@ -9,7 +9,7 @@ import (
 )
 
 // EventSchedules is the list of event schedules
-type EventScheduleSchedules struct {
+type EventSchedules struct {
 	Schedule []EventSchedule `json:"schedule"`
 }
 
@@ -65,27 +65,8 @@ type ScheduledTeam struct {
 	OnField           *bool  `json:"onField,omitempty"`
 }
 
-// GetHybridSchedule gets the hybrid schedule information for a given event.
-func GetHybridSchedule(season string, eventCode string, tournamentLevel MatchType) ([]HybridSchedule, error) {
-	url := fmt.Sprintf("%s/%s/schedule/%s?%s", server, season, eventCode, string(tournamentLevel))
-
-	body, err := ftchttp.Get(url)
-	if err != nil {
-		return nil, err
-	}
-
-	var output []HybridSchedule
-	err = json.Unmarshal(body, &output)
-	if err != nil {
-		return nil, err
-	}
-
-	// Return the output
-	return output, nil
-}
-
 // GetEventSchedule gets the match schedule for a given event.
-func GetEventSchedule(season string, eventCode string, teamNumber ...string) ([]EventSchedule, error) {
+func GetEventSchedule(season string, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]EventSchedule, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
@@ -93,8 +74,11 @@ func GetEventSchedule(season string, eventCode string, teamNumber ...string) ([]
 	sb.WriteString("/schedule")
 	sb.WriteString("/")
 	sb.WriteString(eventCode)
+	sb.WriteString("?")
+	sb.WriteString("tournamentLevel=")
+	sb.WriteString(string(tournamentLevel))
 	if len(teamNumber) > 0 {
-		sb.WriteString("?")
+		sb.WriteString("&teamNumber=")
 		sb.WriteString(teamNumber[0])
 	}
 	url := sb.String()
@@ -104,14 +88,33 @@ func GetEventSchedule(season string, eventCode string, teamNumber ...string) ([]
 		return nil, err
 	}
 
-	var output []EventSchedule
+	var output EventSchedules
 	err = json.Unmarshal(body, &output)
 	if err != nil {
 		return nil, err
 	}
 
 	// Return the output
-	return output, nil
+	return output.Schedule, nil
+}
+
+// GetHybridSchedule gets the hybrid schedule information for a given event.
+func GetHybridSchedule(season string, eventCode string, tournamentLevel MatchType) ([]HybridSchedule, error) {
+	url := fmt.Sprintf("%s/%s/schedule/%s?tournamentLevel=%s", server, season, eventCode, string(tournamentLevel))
+
+	body, err := ftchttp.Get(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var output HybridSchedules
+	err = json.Unmarshal(body, &output)
+	if err != nil {
+		return nil, err
+	}
+
+	// Return the output
+	return output.Schedule, nil
 }
 
 func (s EventSchedule) String() string {
