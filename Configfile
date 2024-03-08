@@ -1,5 +1,0 @@
-# Change this and commit to create new release
-VERSION=0.1.0
-REVISION=v1alpha1
-
-GO ?= go
