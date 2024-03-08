@@ -50,14 +50,14 @@ func GetEventAlliances(season string, eventCode string) ([]Alliance, error) {
 		return nil, err
 	}
 
-	var output []Alliance
+	var output Alliances
 	err = json.Unmarshal(body, &output)
 	if err != nil {
 		return nil, err
 	}
 
 	// Return the output
-	return output, nil
+	return output.Alliances, nil
 }
 
 // GetAllianceSelections returns the teams that were selected into alliances for the given event.
@@ -69,14 +69,14 @@ func GetAllianceSelections(season string, eventCode string) ([]AllianceSelection
 		return nil, err
 	}
 
-	var output []AllianceSelection
+	var output AllianceSelections
 	err = json.Unmarshal(body, &output)
 	if err != nil {
 		return nil, err
 	}
 
 	// Return the output
-	return output, nil
+	return output.Selections, nil
 }
 
 func (a AllianceSelection) String() string {

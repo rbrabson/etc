@@ -40,21 +40,21 @@ type TeamAward struct {
 
 // GetAwardListing returns the list of awards for a given season
 func GetAwardListing(season string) ([]Award, error) {
-	url := fmt.Sprintf("{{baseUrl}}/v2.0/%s/awards/list", season)
+	url := fmt.Sprintf("%s/%s/awards/list", server, season)
 
 	body, err := ftchttp.Get(url)
 	if err != nil {
 		return nil, err
 	}
 
-	var output []Award
+	var output Awards
 	err = json.Unmarshal(body, &output)
 	if err != nil {
 		return nil, err
 	}
 
 	// Return the output
-	return output, nil
+	return output.Awards, nil
 }
 
 // GetEventAwards gets the list of awards given at an event
@@ -62,6 +62,7 @@ func GetEventAwards(season string, eventCode string, teamNumber ...string) ([]Te
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
+	sb.WriteString(season)
 	sb.WriteString("/awards/")
 	sb.WriteString(eventCode)
 	if len(teamNumber) > 0 {
@@ -75,14 +76,14 @@ func GetEventAwards(season string, eventCode string, teamNumber ...string) ([]Te
 		return nil, err
 	}
 
-	var output []TeamAward
+	var output TeamAwards
 	err = json.Unmarshal(body, &output)
 	if err != nil {
 		return nil, err
 	}
 
 	// Return the output
-	return output, nil
+	return output.Awards, nil
 }
 
 // GetTeamAwards gets the list of awards for a given team

@@ -6,8 +6,8 @@ import (
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
-// General provives information for the FTC server API
-type General struct {
+// ApiIndex provives information for the FTC server API
+type ApiIndex struct {
 	Name                    string  `json:"name,omitempty"`
 	APIVersion              string  `json:"apiVersion,omitempty"`
 	ServiceMainifestName    *string `json:"serviceMainifestName,omitempty"`
@@ -19,8 +19,8 @@ type General struct {
 	MaxSeason               int     `json:"maxSeason,omitempty"`
 }
 
-// GetGeneral returns the information for the FTC server API
-func GetGeneral() (*General, error) {
+// GetApiIndex returns the information for the FTC server API
+func GetApiIndex() (*ApiIndex, error) {
 	url := server
 
 	body, err := ftchttp.Get(url)
@@ -28,7 +28,7 @@ func GetGeneral() (*General, error) {
 		return nil, err
 	}
 
-	var output General
+	var output ApiIndex
 	err = json.Unmarshal(body, &output)
 	if err != nil {
 		return nil, err
@@ -39,7 +39,7 @@ func GetGeneral() (*General, error) {
 }
 
 // String returns a string representation of General. In this case, it is a json string.
-func (general *General) String() string {
+func (general *ApiIndex) String() string {
 	body, _ := json.Marshal(general)
 	return string(body)
 }

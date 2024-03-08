@@ -2,6 +2,7 @@ package ftc
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 
 	"github.com/rbrabson/ftc/internal/ftchttp"
@@ -42,7 +43,8 @@ type Event struct {
 	DateEnd       Time    `json:"dateEnd,omitempty"`
 }
 
-// GetEvents returns the list of events for a given season. Supported qparms are `eventCode` and `teamNumber`.
+// GetEvents returns the list of events for a given season. Supported qparms are `eventCode` and `teamNumber`,
+// which are mutually exclusive.
 func GetEvents(season string, qparms ...map[string]string) ([]Event, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
@@ -50,23 +52,19 @@ func GetEvents(season string, qparms ...map[string]string) ([]Event, error) {
 	sb.WriteString(season)
 	sb.WriteString("/events")
 	if len(qparms) > 0 {
-		firstQparm := true
 		for k, v := range qparms[0] {
-			if firstQparm {
-				sb.WriteString("?")
-				firstQparm = false
-			} else {
-				sb.WriteString("&")
-			}
+			sb.WriteString("?")
 			sb.WriteString(k)
 			sb.WriteString("=")
 			sb.WriteString(v)
+			break
 		}
 	}
 	url := sb.String()
 
 	body, err := ftchttp.Get(url)
 	if err != nil {
+		fmt.Println(url)
 		return nil, err
 	}
 
