@@ -15,6 +15,7 @@ const (
 // UnmarshalJSON parses the json time into a time value
 func (ft *Time) UnmarshalJSON(b []byte) error {
 	s := strings.Trim(string(b), "\"")
+	s, _, _ = strings.Cut(s, "Z")
 	t, err := time.Parse(dateFmt, s)
 	if err != nil {
 		return err
@@ -25,15 +26,14 @@ func (ft *Time) UnmarshalJSON(b []byte) error {
 
 // MarshalJSON returns a JSON encoding of the time
 func (ft Time) MarshalJSON() ([]byte, error) {
-	return json.Marshal(time.Time(ft))
+	t, err := json.Marshal(time.Time(ft))
+	return t, err
 }
 
 // Format function for printing the date
 func (ft Time) Format() string {
 	t := time.Time(ft)
-	str := t.Format(dateFmt)
-	str = strings.TrimSuffix(str, "Z")
-	return str
+	return t.Format(dateFmt)
 }
 
 // String function for printing the date
