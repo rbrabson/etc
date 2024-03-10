@@ -9,7 +9,7 @@ import (
 type Time time.Time
 
 const (
-	dateFmt = "2006-01-02T15:04:05"
+	dateFmt = "2006-01-02T15:04:05Z"
 )
 
 // UnmarshalJSON parses the json time into a time value
@@ -31,6 +31,7 @@ func (ft Time) MarshalJSON() ([]byte, error) {
 // Format function for printing the date
 func (ft Time) Format() string {
 	t := time.Time(ft)
+
 	return t.Format(dateFmt)
 }
 
