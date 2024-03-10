@@ -8,14 +8,15 @@ import (
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
-// Advancements is the list of teams that advanced from or to a given tournament
+// AdvancementsTo is the list of teams that advanced from or to a given tournament
 type AdvancementsTo struct {
 	AdvancesTo  string        `json:"advancesTo"`
 	Slots       int           `json:"slots"`
 	Advancement []Advancement `json:"advancement"`
 }
 
-type AdvancementsFrom []struct {
+// AdvancementsFrom is the list of teams advancing to a future tournament
+type AdvancementsFrom struct {
 	AdvancedFrom       string        `json:"advancedFrom"`
 	AdvancedFromRegion any           `json:"advancedFromRegion"`
 	Slots              int           `json:"slots"`
@@ -33,7 +34,7 @@ type Advancement struct {
 
 // GetAdvancementFrom returns the source events from which teams advanced from to reach
 // the specified event.
-func GetAdvancementFrom(season string, eventCode string) (*AdvancementsFrom, error) {
+func GetAdvancementsFrom(season string, eventCode string) ([]AdvancementsFrom, error) {
 	url := fmt.Sprintf("%s/%s/advancement/%s/source", server, season, eventCode)
 
 	body, err := ftchttp.Get(url)
@@ -41,19 +42,21 @@ func GetAdvancementFrom(season string, eventCode string) (*AdvancementsFrom, err
 		return nil, err
 	}
 
-	var output AdvancementsFrom
+	var output []AdvancementsFrom
 	err = json.Unmarshal(body, &output)
 	if err != nil {
 		return nil, err
 	}
 
+	return nil, err
+
 	// Return the output
-	return &output, nil
+	return output, nil
 }
 
 // GetAdvancementTo returns the list of teams advancing from the event and to which event
 // they are advancing.
-func GetAdvancementTo(season string, eventCode string, excludeSkipped ...bool) (*AdvancementsTo, error) {
+func GetAdvancementsTo(season string, eventCode string, excludeSkipped ...bool) (*AdvancementsTo, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
