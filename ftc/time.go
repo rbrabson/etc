@@ -9,7 +9,7 @@ import (
 type Time time.Time
 
 const (
-	dateFmt = "2006-01-02T15:04:05Z"
+	dateFmt = "2006-01-02T15:04:05"
 )
 
 // UnmarshalJSON parses the json time into a time value
