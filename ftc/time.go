@@ -31,8 +31,9 @@ func (ft Time) MarshalJSON() ([]byte, error) {
 // Format function for printing the date
 func (ft Time) Format() string {
 	t := time.Time(ft)
-
-	return t.Format(dateFmt)
+	str := t.Format(dateFmt)
+	str = strings.TrimSuffix(str, "Z")
+	return str
 }
 
 // String function for printing the date
