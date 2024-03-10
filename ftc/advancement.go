@@ -48,8 +48,6 @@ func GetAdvancementsFrom(season string, eventCode string) ([]AdvancementsFrom, e
 		return nil, err
 	}
 
-	return nil, err
-
 	// Return the output
 	return output, nil
 }
