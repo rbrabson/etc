@@ -2,6 +2,7 @@ package ftc
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 
 	"github.com/rbrabson/ftc/internal/ftchttp"
@@ -36,7 +37,7 @@ type Team struct {
 }
 
 // GetTeams returns a `page` of FTC teams.
-func GetTeams(season string, teamNumber ...string) (*Teams, error) {
+func GetTeams(season string, teamNumber ...string) ([]Team, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
@@ -48,6 +49,7 @@ func GetTeams(season string, teamNumber ...string) (*Teams, error) {
 	}
 	url := sb.String()
 
+	// Get the first page of teams
 	body, err := ftchttp.Get(url)
 	if err != nil {
 		return nil, err
@@ -59,7 +61,29 @@ func GetTeams(season string, teamNumber ...string) (*Teams, error) {
 		return nil, err
 	}
 
-	return &output, nil
+	// Make the slice large enough to contain all teams
+	teams := make([]Team, 0, output.TeamCountTotal)
+	teams = append(teams, output.Teams...)
+
+	// Loop through all remaining pages, appending the teams to the list
+	numPages := output.PageTotal
+	for i := 2; i <= numPages; i++ {
+		pageURL := fmt.Sprintf("%s?page=%d", url, i)
+		body, err := ftchttp.Get(pageURL)
+		if err != nil {
+			return nil, err
+		}
+
+		var output Teams
+		err = json.Unmarshal(body, &output)
+		if err != nil {
+			return nil, err
+		}
+
+		teams = append(teams, output.Teams...)
+	}
+
+	return teams, nil
 }
 
 // String returns a string representation of Teams. In this case, it is a json string.

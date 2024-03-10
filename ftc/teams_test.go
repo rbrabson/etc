@@ -1,6 +1,9 @@
 package ftc
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 // TestGetTeams calls ftc.GetTeams to test the results of the call
 func TestGetTeams(t *testing.T) {
@@ -8,6 +11,7 @@ func TestGetTeams(t *testing.T) {
 	if err != nil {
 		t.Fatalf("TestGetTeams: %s", err.Error())
 	}
+	fmt.Println(results)
 	t.Log(results)
 }
 
