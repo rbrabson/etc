@@ -18,7 +18,7 @@ type AdvancementsTo struct {
 // AdvancementsFrom is the list of teams advancing to a future tournament
 type AdvancementsFrom struct {
 	AdvancedFrom       string        `json:"advancedFrom"`
-	AdvancedFromRegion any           `json:"advancedFromRegion"`
+	AdvancedFromRegion *string       `json:"advancedFromRegion"`
 	Slots              int           `json:"slots"`
 	Advancement        []Advancement `json:"advancement"`
 }

@@ -45,8 +45,8 @@ type HybridSchedule struct {
 	ScoreBlueFinal           int             `json:"scoreBlueFinal"`
 	ScoreBlueFoul            int             `json:"scoreBlueFoul"`
 	ScoreBlueAuto            int             `json:"scoreBlueAuto"`
-	ScoreBlueDriveControlled any             `json:"scoreBlueDriveControlled"`
-	ScoreBlueEndgame         any             `json:"scoreBlueEndgame"`
+	ScoreBlueDriveControlled *int            `json:"scoreBlueDriveControlled,omitempty"`
+	ScoreBlueEndgame         *int            `json:"scoreBlueEndgame,omitempty"`
 	RedWins                  bool            `json:"redWins"`
 	BlueWins                 bool            `json:"blueWins"`
 	Teams                    []ScheduledTeam `json:"teams"`
@@ -61,7 +61,7 @@ type ScheduledTeam struct {
 	TeamName          string `json:"teamName,omitempty"`
 	Surrogate         bool   `json:"surrogate,omitempty"`
 	NoShow            bool   `json:"noShow,omitempty"`
-	Dq                *bool  `json:"dq,omitempty"`
+	DQ                *bool  `json:"dq,omitempty"`
 	OnField           *bool  `json:"onField,omitempty"`
 }
 

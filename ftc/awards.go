@@ -28,14 +28,14 @@ type TeamAwards struct {
 
 // TeamAward is an award that is received by a given team
 type TeamAward struct {
-	AwardID      int    `json:"awardId"`
-	EventCode    string `json:"eventCode"`
-	Name         string `json:"name"`
-	Series       int    `json:"series"`
-	TeamNumber   int    `json:"teamNumber"`
-	SchoolName   any    `json:"schoolName"`
-	FullTeamName string `json:"fullTeamName"`
-	Person       any    `json:"person"`
+	AwardID      int     `json:"awardId"`
+	EventCode    string  `json:"eventCode"`
+	Name         string  `json:"name"`
+	Series       int     `json:"series"`
+	TeamNumber   int     `json:"teamNumber"`
+	SchoolName   *string `json:"schoolName"`
+	FullTeamName string  `json:"fullTeamName"`
+	Person       *string `json:"person"`
 }
 
 // GetAwardListing returns the list of awards for a given season
