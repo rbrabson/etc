@@ -63,8 +63,8 @@ type MatchAlliance struct {
 	TotalPoints             int    `json:"totalPoints"`
 }
 
-// GetEventMatchResults returns the results for a given event
-func GetEventMatchResults(season string, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]MatchScores, error) {
+// GetEventScores returns the results for a given event
+func GetEventScores(season string, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]MatchScores, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
