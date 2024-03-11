@@ -33,9 +33,9 @@ type TeamAward struct {
 	Name         string  `json:"name"`
 	Series       int     `json:"series"`
 	TeamNumber   int     `json:"teamNumber"`
-	SchoolName   *string `json:"schoolName"`
+	SchoolName   *string `json:"schoolName,omitempty"`
 	FullTeamName string  `json:"fullTeamName"`
-	Person       *string `json:"person"`
+	Person       *string `json:"person,omitempty"`
 }
 
 // GetAwardListing returns the list of awards for a given season
