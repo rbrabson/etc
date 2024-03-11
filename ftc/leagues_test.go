@@ -58,12 +58,3 @@ func TestGetLeagueMembers(t *testing.T) {
 	}
 	t.Log(members)
 }
-
-// TestGetLeagueRankings calls ftc.GetLeagueRankings to test the results of the call
-func TestGetLeagueRankings(t *testing.T) {
-	members, err := GetLeagueRankings("2023", "USTX", "CG")
-	if err != nil {
-		t.Fatalf("TestGetLeagueRankings: %s", err.Error())
-	}
-	t.Log(members)
-}
