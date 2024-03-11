@@ -7,13 +7,13 @@ import (
 	"github.com/rbrabson/ftc/internal/ftchttp"
 )
 
-// Rankings is the list of rangings for a given league.
-type Rankings struct {
-	Rankings []EventRanking `json:"rankings"`
+// EventRankings is the list of rankings for a given event.
+type EventRankings struct {
+	Rankings []Ranking `json:"rankings"`
 }
 
-// EventRanking is the ranking for a given league.
-type EventRanking struct {
+// Ranking is the ranking for a given event.
+type Ranking struct {
 	Rank              int     `json:"rank"`
 	TeamNumber        int     `json:"teamNumber"`
 	DisplayTeamNumber string  `json:"displayTeamNumber"`
@@ -34,7 +34,7 @@ type EventRanking struct {
 }
 
 // GetRankings returns the team rankings in a given league.
-func GetRankings(season string, regionCode string, leagueCode string) ([]EventRanking, error) {
+func GetRankings(season string, regionCode string, leagueCode string) ([]Ranking, error) {
 	url := fmt.Sprintf("%s/%s/leagues/rankings/%s/%s", server, season, regionCode, leagueCode)
 
 	body, err := ftchttp.Get(url)
@@ -42,7 +42,7 @@ func GetRankings(season string, regionCode string, leagueCode string) ([]EventRa
 		return nil, err
 	}
 
-	var output Rankings
+	var output EventRankings
 	err = json.Unmarshal(body, &output)
 	if err != nil {
 		return nil, err
@@ -53,7 +53,7 @@ func GetRankings(season string, regionCode string, leagueCode string) ([]EventRa
 }
 
 // String returns a string representation of LeagueRanking. In this case, it is a json string.
-func (r EventRanking) String() string {
+func (r Ranking) String() string {
 	body, _ := json.Marshal(r)
 	return string(body)
 }
