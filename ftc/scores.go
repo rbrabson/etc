@@ -69,12 +69,12 @@ func GetEventScores(season string, eventCode string, tournamentLevel MatchType, 
 	sb.WriteString(server)
 	sb.WriteString("/")
 	sb.WriteString(season)
-	sb.WriteString("/matches/")
+	sb.WriteString("/scores/")
 	sb.WriteString(eventCode)
-	sb.WriteString("?")
+	sb.WriteString("/")
 	sb.WriteString(string(tournamentLevel))
 	if len(teamNumber) > 0 {
-		sb.WriteString("&")
+		sb.WriteString("?")
 		sb.WriteString(teamNumber[0])
 	}
 	url := sb.String()
