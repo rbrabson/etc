@@ -10,17 +10,17 @@ import (
 
 // AdvancementsTo is the list of teams that advanced from or to a given tournament
 type AdvancementsTo struct {
-	AdvancesTo  string        `json:"advancesTo"`
-	Slots       int           `json:"slots"`
-	Advancement []Advancement `json:"advancement"`
+	AdvancesTo  string         `json:"advancesTo"`
+	Slots       int            `json:"slots"`
+	Advancement []*Advancement `json:"advancement"`
 }
 
 // AdvancementsFrom is the list of teams advancing to a future tournament
 type AdvancementsFrom struct {
-	AdvancedFrom       string        `json:"advancedFrom"`
-	AdvancedFromRegion *string       `json:"advancedFromRegion"`
-	Slots              int           `json:"slots"`
-	Advancement        []Advancement `json:"advancement"`
+	AdvancedFrom       string         `json:"advancedFrom"`
+	AdvancedFromRegion *string        `json:"advancedFromRegion"`
+	Slots              int            `json:"slots"`
+	Advancement        []*Advancement `json:"advancement"`
 }
 
 // Advancement is the advancement information for a given team
