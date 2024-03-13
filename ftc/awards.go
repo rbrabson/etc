@@ -58,7 +58,7 @@ func GetAwardListing(season string) ([]Award, error) {
 }
 
 // GetEventAwards gets the list of awards given at an event
-func GetEventAwards(season string, eventCode string, teamNumber ...string) ([]TeamAward, error) {
+func GetEventAwards(season, eventCode string, teamNumber ...string) ([]TeamAward, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
@@ -87,13 +87,13 @@ func GetEventAwards(season string, eventCode string, teamNumber ...string) ([]Te
 }
 
 // GetTeamAwards gets the list of awards for a given team
-func GetTeamAwards(season string, teamNumber string, eventCode ...string) ([]TeamAward, error) {
+func GetTeamAwards(season, teamNumber string, eventCode ...string) ([]TeamAward, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
 	sb.WriteString("/awards/")
 	sb.WriteString(teamNumber)
-	if len(teamNumber) > 0 {
+	if teamNumber != "" {
 		sb.WriteString("?eventCode")
 		sb.WriteString(eventCode[0])
 	}

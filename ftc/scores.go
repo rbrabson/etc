@@ -64,7 +64,7 @@ type MatchAlliance struct {
 }
 
 // GetEventScores returns the results for a given event
-func GetEventScores(season string, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]MatchScores, error) {
+func GetEventScores(season, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]MatchScores, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")

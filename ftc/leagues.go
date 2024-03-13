@@ -68,7 +68,7 @@ func GetLeagues(season string, qparms ...map[string]string) ([]League, error) {
 }
 
 // GetLeagueMembers returns the list of members in the league
-func GetLeagueMembers(season string, regionCode string, leagueCode string) ([]int, error) {
+func GetLeagueMembers(season, regionCode, leagueCode string) ([]int, error) {
 	url := fmt.Sprintf("%s/%s/leagues/members/%s/%s", server, season, regionCode, leagueCode)
 
 	body, err := ftchttp.Get(url)

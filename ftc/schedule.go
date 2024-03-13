@@ -66,7 +66,7 @@ type ScheduledTeam struct {
 }
 
 // GetEventSchedule gets the match schedule for a given event.
-func GetEventSchedule(season string, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]EventSchedule, error) {
+func GetEventSchedule(season, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]EventSchedule, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
@@ -99,7 +99,7 @@ func GetEventSchedule(season string, eventCode string, tournamentLevel MatchType
 }
 
 // GetHybridSchedule gets the hybrid schedule information for a given event.
-func GetHybridSchedule(season string, eventCode string, tournamentLevel MatchType) ([]HybridSchedule, error) {
+func GetHybridSchedule(season, eventCode string, tournamentLevel MatchType) ([]HybridSchedule, error) {
 	url := fmt.Sprintf("%s/%s/schedule/%s?tournamentLevel=%s", server, season, eventCode, string(tournamentLevel))
 
 	body, err := ftchttp.Get(url)

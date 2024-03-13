@@ -42,7 +42,7 @@ type Alliance struct {
 }
 
 // GetEventAlliances returns the alliance selectsions for the playoffs for the given event.
-func GetEventAlliances(season string, eventCode string) ([]Alliance, error) {
+func GetEventAlliances(season, eventCode string) ([]Alliance, error) {
 	url := fmt.Sprintf("%s/%s/alliances/%s", server, season, eventCode)
 
 	body, err := ftchttp.Get(url)
@@ -61,7 +61,7 @@ func GetEventAlliances(season string, eventCode string) ([]Alliance, error) {
 }
 
 // GetAllianceSelections returns the teams that were selected into alliances for the given event.
-func GetAllianceSelections(season string, eventCode string) ([]AllianceSelection, error) {
+func GetAllianceSelections(season, eventCode string) ([]AllianceSelection, error) {
 	url := fmt.Sprintf("%s/%s/alliances/%s/selection", server, season, eventCode)
 
 	body, err := ftchttp.Get(url)

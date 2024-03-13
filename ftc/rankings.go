@@ -34,7 +34,7 @@ type Ranking struct {
 }
 
 // GetRankings returns the team rankings in a given league.
-func GetRankings(season string, eventCode string) ([]Ranking, error) {
+func GetRankings(season, eventCode string) ([]Ranking, error) {
 	url := fmt.Sprintf("%s/%s/rankings/%s", server, season, eventCode)
 
 	body, err := ftchttp.Get(url)

@@ -46,7 +46,7 @@ type MatchTeam struct {
 }
 
 // GetMatchResults returns the results of a given event.
-func GetMatchResults(season string, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]Match, error) {
+func GetMatchResults(season, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]Match, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")

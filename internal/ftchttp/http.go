@@ -18,7 +18,7 @@ func Get(url string) ([]byte, error) {
 	}
 
 	// Set up HTTP request with basic authorization.
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}
