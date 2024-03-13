@@ -9,7 +9,7 @@ import (
 
 // Rankings is the list of rankings for a given event.
 type Rankings struct {
-	Rankings []Ranking `json:"rankings"`
+	Rankings []*Ranking `json:"rankings"`
 }
 
 // Ranking is the ranking for a given event.
@@ -34,7 +34,7 @@ type Ranking struct {
 }
 
 // GetRankings returns the team rankings in a given league.
-func GetRankings(season, eventCode string) ([]Ranking, error) {
+func GetRankings(season, eventCode string) ([]*Ranking, error) {
 	url := fmt.Sprintf("%s/%s/rankings/%s", server, season, eventCode)
 
 	body, err := ftchttp.Get(url)

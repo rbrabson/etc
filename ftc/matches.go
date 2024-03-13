@@ -18,25 +18,25 @@ const (
 
 // Matches is the list of matches
 type Matches struct {
-	Matches []Match `json:"matches"`
+	Matches []*Match `json:"matches"`
 }
 
 // Match is a match that takes place at a given event
 type Match struct {
-	ActualStartTime string      `json:"actualStartTime"`
-	Description     string      `json:"description"`
-	TournamentLevel string      `json:"tournamentLevel"`
-	Series          int         `json:"series"`
-	MatchNumber     int         `json:"matchNumber"`
-	ScoreRedFinal   int         `json:"scoreRedFinal"`
-	ScoreRedFoul    int         `json:"scoreRedFoul"`
-	ScoreRedAuto    int         `json:"scoreRedAuto"`
-	ScoreBlueFinal  int         `json:"scoreBlueFinal"`
-	ScoreBlueFoul   int         `json:"scoreBlueFoul"`
-	ScoreBlueAuto   int         `json:"scoreBlueAuto"`
-	PostResultTime  string      `json:"postResultTime"`
-	Teams           []MatchTeam `json:"teams"`
-	ModifiedOn      string      `json:"modifiedOn"`
+	ActualStartTime string       `json:"actualStartTime"`
+	Description     string       `json:"description"`
+	TournamentLevel string       `json:"tournamentLevel"`
+	Series          int          `json:"series"`
+	MatchNumber     int          `json:"matchNumber"`
+	ScoreRedFinal   int          `json:"scoreRedFinal"`
+	ScoreRedFoul    int          `json:"scoreRedFoul"`
+	ScoreRedAuto    int          `json:"scoreRedAuto"`
+	ScoreBlueFinal  int          `json:"scoreBlueFinal"`
+	ScoreBlueFoul   int          `json:"scoreBlueFoul"`
+	ScoreBlueAuto   int          `json:"scoreBlueAuto"`
+	PostResultTime  string       `json:"postResultTime"`
+	Teams           []*MatchTeam `json:"teams"`
+	ModifiedOn      string       `json:"modifiedOn"`
 }
 type MatchTeam struct {
 	TeamNumber int    `json:"teamNumber"`
@@ -46,7 +46,7 @@ type MatchTeam struct {
 }
 
 // GetMatchResults returns the results of a given event.
-func GetMatchResults(season, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]Match, error) {
+func GetMatchResults(season, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]*Match, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")

@@ -9,8 +9,8 @@ import (
 
 // AllianceSelections is the list of alliance selections.
 type AllianceSelections struct {
-	Selections []AllianceSelection `json:"selections"`
-	Count      int                 `json:"count"`
+	Selections []*AllianceSelection `json:"selections"`
+	Count      int                  `json:"count"`
 }
 
 // AllianceSelection is the alliance results for a given team
@@ -22,8 +22,8 @@ type AllianceSelection struct {
 
 // Alliances is the list of alliances in a given tournament
 type Alliances struct {
-	Alliances []Alliance `json:"alliances"`
-	Count     int        `json:"count"`
+	Alliances []*Alliance `json:"alliances"`
+	Count     int         `json:"count"`
 }
 
 // Alliance is the results for one alliance in a match between two alliances
@@ -42,7 +42,7 @@ type Alliance struct {
 }
 
 // GetEventAlliances returns the alliance selectsions for the playoffs for the given event.
-func GetEventAlliances(season, eventCode string) ([]Alliance, error) {
+func GetEventAlliances(season, eventCode string) ([]*Alliance, error) {
 	url := fmt.Sprintf("%s/%s/alliances/%s", server, season, eventCode)
 
 	body, err := ftchttp.Get(url)
@@ -61,7 +61,7 @@ func GetEventAlliances(season, eventCode string) ([]Alliance, error) {
 }
 
 // GetAllianceSelections returns the teams that were selected into alliances for the given event.
-func GetAllianceSelections(season, eventCode string) ([]AllianceSelection, error) {
+func GetAllianceSelections(season, eventCode string) ([]*AllianceSelection, error) {
 	url := fmt.Sprintf("%s/%s/alliances/%s/selection", server, season, eventCode)
 
 	body, err := ftchttp.Get(url)

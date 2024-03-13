@@ -10,8 +10,8 @@ import (
 
 // Leagues is the data for the FTC leagues
 type Leagues struct {
-	Leagues     []League `json:"leagues"`
-	LeagueCount int      `json:"leagueCount"`
+	Leagues     []*League `json:"leagues"`
+	LeagueCount int       `json:"leagueCount"`
 }
 
 // League is the data for a given FTC league
@@ -30,7 +30,7 @@ type LeagueMembers struct {
 }
 
 // GetLeagues returns the list of rankings for FTC leagues. Supported qparms are `regionCode` and `leagueCode`.
-func GetLeagues(season string, qparms ...map[string]string) ([]League, error) {
+func GetLeagues(season string, qparms ...map[string]string) ([]*League, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")

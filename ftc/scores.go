@@ -9,16 +9,16 @@ import (
 
 // Scores is the list of match scores at a given event.
 type Scores struct {
-	MatchScores []MatchScores `json:"matchScores"`
+	MatchScores []*MatchScores `json:"matchScores"`
 }
 
 // MatchScores is the results of a match at a given event.
 type MatchScores struct {
-	MatchLevel    string          `json:"matchLevel"`
-	MatchSeries   int             `json:"matchSeries"`
-	MatchNumber   int             `json:"matchNumber"`
-	Randomization int             `json:"randomization"`
-	Alliances     []MatchAlliance `json:"alliances"`
+	MatchLevel    string           `json:"matchLevel"`
+	MatchSeries   int              `json:"matchSeries"`
+	MatchNumber   int              `json:"matchNumber"`
+	Randomization int              `json:"randomization"`
+	Alliances     []*MatchAlliance `json:"alliances"`
 }
 
 // MatchAlliance is the detailed results for a given team in a match at a given event.
@@ -64,7 +64,7 @@ type MatchAlliance struct {
 }
 
 // GetEventScores returns the results for a given event
-func GetEventScores(season, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]MatchScores, error) {
+func GetEventScores(season, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]*MatchScores, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")

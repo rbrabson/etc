@@ -9,12 +9,12 @@ import (
 
 // Championships is the information about the season summary
 type Championships struct {
-	EventCount    int            `json:"eventCount"`
-	GameName      string         `json:"gameName"`
-	Kickoff       string         `json:"kickoff"`
-	RookieStart   int            `json:"rookieStart"`
-	TeamCount     int            `json:"teamCount"`
-	Championships []Championship `json:"fRCChampionships"`
+	EventCount    int             `json:"eventCount"`
+	GameName      string          `json:"gameName"`
+	Kickoff       string          `json:"kickoff"`
+	RookieStart   int             `json:"rookieStart"`
+	TeamCount     int             `json:"teamCount"`
+	Championships []*Championship `json:"fRCChampionships"`
 }
 
 // Championship is the information about a given regional championship.

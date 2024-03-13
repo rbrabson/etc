@@ -10,7 +10,7 @@ import (
 
 // Awards is the list of awards for a given season
 type Awards struct {
-	Awards []Award `json:"awards"`
+	Awards []*Award `json:"awards"`
 }
 
 // Award is an award that is given in a given season
@@ -23,7 +23,7 @@ type Award struct {
 
 // TeamAwards is the list of awards received by a team
 type TeamAwards struct {
-	Awards []TeamAward `json:"awards"`
+	Awards []*TeamAward `json:"awards"`
 }
 
 // TeamAward is an award that is received by a given team
@@ -39,7 +39,7 @@ type TeamAward struct {
 }
 
 // GetAwardListing returns the list of awards for a given season
-func GetAwardListing(season string) ([]Award, error) {
+func GetAwardListing(season string) ([]*Award, error) {
 	url := fmt.Sprintf("%s/%s/awards/list", server, season)
 
 	body, err := ftchttp.Get(url)
@@ -58,7 +58,7 @@ func GetAwardListing(season string) ([]Award, error) {
 }
 
 // GetEventAwards gets the list of awards given at an event
-func GetEventAwards(season, eventCode string, teamNumber ...string) ([]TeamAward, error) {
+func GetEventAwards(season, eventCode string, teamNumber ...string) ([]*TeamAward, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
@@ -87,7 +87,7 @@ func GetEventAwards(season, eventCode string, teamNumber ...string) ([]TeamAward
 }
 
 // GetTeamAwards gets the list of awards for a given team
-func GetTeamAwards(season, teamNumber string, eventCode ...string) ([]TeamAward, error) {
+func GetTeamAwards(season, teamNumber string, eventCode ...string) ([]*TeamAward, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
@@ -104,7 +104,7 @@ func GetTeamAwards(season, teamNumber string, eventCode ...string) ([]TeamAward,
 		return nil, err
 	}
 
-	var output []TeamAward
+	var output []*TeamAward
 	err = json.Unmarshal(body, &output)
 	if err != nil {
 		return nil, err

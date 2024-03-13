@@ -11,11 +11,11 @@ import (
 // Teams returns a list of FTC teams. The information is returned in `pages`, so multiple requests
 // may be required to get all FTC teams.
 type Teams struct {
-	Teams          []Team `json:"teams"`
-	TeamCountTotal int    `json:"teamCountTotal"`
-	TeamCountPage  int    `json:"teamCountPage"`
-	PageCurrent    int    `json:"pageCurrent"`
-	PageTotal      int    `json:"pageTotal"`
+	Teams          []*Team `json:"teams"`
+	TeamCountTotal int     `json:"teamCountTotal"`
+	TeamCountPage  int     `json:"teamCountPage"`
+	PageCurrent    int     `json:"pageCurrent"`
+	PageTotal      int     `json:"pageTotal"`
 }
 
 // Team is information for a given FTC team.
@@ -37,7 +37,7 @@ type Team struct {
 }
 
 // GetTeams returns a `page` of FTC teams.
-func GetTeams(season string, teamNumber ...string) ([]Team, error) {
+func GetTeams(season string, teamNumber ...string) ([]*Team, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
@@ -62,7 +62,7 @@ func GetTeams(season string, teamNumber ...string) ([]Team, error) {
 	}
 
 	// Make the slice large enough to contain all teams
-	teams := make([]Team, 0, output.TeamCountTotal)
+	teams := make([]*Team, 0, output.TeamCountTotal)
 	teams = append(teams, output.Teams...)
 
 	// Loop through all remaining pages, appending the teams to the list

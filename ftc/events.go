@@ -10,8 +10,8 @@ import (
 
 // Events is information about FTC events.
 type Events struct {
-	Events     []Event `json:"events,omitempty"`
-	EventCount int     `json:"eventCount,omitempty"`
+	Events     []*Event `json:"events,omitempty"`
+	EventCount int      `json:"eventCount,omitempty"`
 }
 
 // Event is information about a given FTC event.
@@ -45,7 +45,7 @@ type Event struct {
 
 // GetEvents returns the list of events for a given season. Supported qparms are `eventCode` and `teamNumber`,
 // which are mutually exclusive.
-func GetEvents(season string, qparms ...map[string]string) ([]Event, error) {
+func GetEvents(season string, qparms ...map[string]string) ([]*Event, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")

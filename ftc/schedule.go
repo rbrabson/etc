@@ -10,12 +10,12 @@ import (
 
 // EventSchedules is the list of event schedules
 type EventSchedules struct {
-	Schedule []EventSchedule `json:"schedule"`
+	Schedule []*EventSchedule `json:"schedule"`
 }
 
 // HybridSchedules is the list of results for a schedule at a given event
 type HybridSchedules struct {
-	Schedule []HybridSchedule `json:"schedule"`
+	Schedule []*HybridSchedule `json:"schedule"`
 }
 
 // EventSchedule is the schedule at a given event
@@ -66,7 +66,7 @@ type ScheduledTeam struct {
 }
 
 // GetEventSchedule gets the match schedule for a given event.
-func GetEventSchedule(season, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]EventSchedule, error) {
+func GetEventSchedule(season, eventCode string, tournamentLevel MatchType, teamNumber ...string) ([]*EventSchedule, error) {
 	sb := strings.Builder{}
 	sb.WriteString(server)
 	sb.WriteString("/")
@@ -99,7 +99,7 @@ func GetEventSchedule(season, eventCode string, tournamentLevel MatchType, teamN
 }
 
 // GetHybridSchedule gets the hybrid schedule information for a given event.
-func GetHybridSchedule(season, eventCode string, tournamentLevel MatchType) ([]HybridSchedule, error) {
+func GetHybridSchedule(season, eventCode string, tournamentLevel MatchType) ([]*HybridSchedule, error) {
 	url := fmt.Sprintf("%s/%s/schedule/%s?tournamentLevel=%s", server, season, eventCode, string(tournamentLevel))
 
 	body, err := ftchttp.Get(url)

@@ -34,7 +34,7 @@ type Advancement struct {
 
 // GetAdvancementFrom returns the source events from which teams advanced from to reach
 // the specified event.
-func GetAdvancementsFrom(season, eventCode string) ([]AdvancementsFrom, error) {
+func GetAdvancementsFrom(season, eventCode string) ([]*AdvancementsFrom, error) {
 	url := fmt.Sprintf("%s/%s/advancement/%s/source", server, season, eventCode)
 
 	body, err := ftchttp.Get(url)
@@ -42,7 +42,7 @@ func GetAdvancementsFrom(season, eventCode string) ([]AdvancementsFrom, error) {
 		return nil, err
 	}
 
-	var output []AdvancementsFrom
+	var output []*AdvancementsFrom
 	err = json.Unmarshal(body, &output)
 	if err != nil {
 		return nil, err
